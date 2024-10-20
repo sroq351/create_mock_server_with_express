@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-const PersonalData = JSON.parse(fs.readFileSync(`mock-server/data/data.json`));
+const PersonalData = JSON.parse(fs.readFileSync(`${__dirname}/data/data.json`));
 
 app.get("/me", (req, res) => {
   res.status(200).json({
@@ -21,7 +21,7 @@ app.patch("/me", (req, res) => {
   const UpdatedData = { ...PersonalData, ...updates };
 
   fs.writeFile(
-    `mock-server/data/data.json`,
+    `${__dirname}/data/data.json`,
     JSON.stringify(UpdatedData),
     (err) => {
       if (err) {
@@ -39,7 +39,7 @@ app.patch("/me", (req, res) => {
 });
 app.delete("/me", (req, res) => {
   fs.writeFile(
-    `mock-server/data/data.json`,
+    `${__dirname}/data/data.json`,
     JSON.stringify(PersonalData),
     (err) => {
       if (err) {
